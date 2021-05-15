@@ -1,6 +1,6 @@
 <?php
 
-namespace Chelout\RelationshipEvents;
+namespace Artificertech\RelationshipEvents;
 
 use Illuminate\Support\ServiceProvider;
 

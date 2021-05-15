@@ -1,10 +1,10 @@
 <?php
 
-namespace Chelout\RelationshipEvents;
+namespace Artificertech\RelationshipEvents;
 
-use Chelout\RelationshipEvents\Contracts\EventDispatcher;
-use Chelout\RelationshipEvents\Traits\HasEventDispatcher;
-use Chelout\RelationshipEvents\Traits\HasOneOrManyMethods;
+use Artificertech\RelationshipEvents\Contracts\EventDispatcher;
+use Artificertech\RelationshipEvents\Traits\HasEventDispatcher;
+use Artificertech\RelationshipEvents\Traits\HasOneOrManyMethods;
 use Illuminate\Database\Eloquent\Relations\HasOne as HasOneBase;
 
 /**

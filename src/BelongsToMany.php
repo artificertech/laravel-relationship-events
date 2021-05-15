@@ -1,16 +1,16 @@
 <?php
 
-namespace Chelout\RelationshipEvents;
+namespace Artificertech\RelationshipEvents;
 
-use Chelout\RelationshipEvents\Contracts\EventDispatcher;
-use Chelout\RelationshipEvents\Traits\HasEventDispatcher;
+use Artificertech\RelationshipEvents\Contracts\EventDispatcher;
+use Artificertech\RelationshipEvents\Traits\HasEventDispatcher;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany as BelongsToManyBase;
 
 /**
  * Class BelongsToMany.
  *
  *
- * @property-read \Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents $parent
+ * @property-read \Artificertech\RelationshipEvents\Concerns\HasBelongsToManyEvents $parent
  */
 class BelongsToMany extends BelongsToManyBase implements EventDispatcher
 {

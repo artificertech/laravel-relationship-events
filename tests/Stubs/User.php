@@ -1,11 +1,11 @@
 <?php
 
-namespace Chelout\RelationshipEvents\Tests\Stubs;
+namespace Artificertech\RelationshipEvents\Tests\Stubs;
 
-use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
-use Chelout\RelationshipEvents\Concerns\HasManyEvents;
-use Chelout\RelationshipEvents\Concerns\HasMorphOneEvents;
-use Chelout\RelationshipEvents\Concerns\HasOneEvents;
+use Artificertech\RelationshipEvents\Concerns\HasBelongsToManyEvents;
+use Artificertech\RelationshipEvents\Concerns\HasManyEvents;
+use Artificertech\RelationshipEvents\Concerns\HasMorphOneEvents;
+use Artificertech\RelationshipEvents\Concerns\HasOneEvents;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

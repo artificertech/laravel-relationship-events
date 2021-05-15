@@ -7,7 +7,7 @@
 ```php
 namespace App\Models;
 
-use Chelout\RelationshipEvents\Concerns\HasMorphManyEvents;
+use Artificertech\RelationshipEvents\Concerns\HasMorphManyEvents;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -85,7 +85,7 @@ There is also inverse relation ```Comment``` belongs to ```Post```
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Chelout\RelationshipEvents\Concerns\HasMorphToEvents;
+use Artificertech\RelationshipEvents\Concerns\HasMorphToEvents;
 
 class Comment extends Model
 {

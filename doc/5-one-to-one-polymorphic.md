@@ -8,7 +8,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Chelout\RelationshipEvents\Concerns\HasMorphOneEvents;
+use Artificertech\RelationshipEvents\Concerns\HasMorphOneEvents;
 
 class User extends Model
 {
@@ -82,7 +82,7 @@ There is also inverse relation ```Address``` belongs to ```User```
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Chelout\RelationshipEvents\Concerns\HasBelongsToEvents;
+use Artificertech\RelationshipEvents\Concerns\HasBelongsToEvents;
 
 class Address extends Model
 {

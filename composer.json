@@ -1,7 +1,7 @@
 {
-    "name": "chelout/laravel-relationship-events",
+    "name": "artificertech/laravel-relationship-events",
     "description": "Missing relationship events for Laravel",
-    "homepage": "https://github.com/chelout/laravel-relationship-events",
+    "homepage": "https://github.com/artificertech/laravel-relationship-events",
     "license": "MIT",
     "keywords": [
         "laravel",
@@ -11,8 +11,8 @@
     ],
     "authors": [
         {
-            "name": "chelout",
-            "email": "chelout@gmail.com"
+            "name": "Cole Shirley",
+            "email": "cole.shirley@artificertech.com"
         }
     ],
     "require": {
@@ -28,19 +28,19 @@
     },
     "autoload": {
         "psr-4": {
-            "Chelout\\RelationshipEvents\\": "src/"
+            "Artificertech\\RelationshipEvents\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Chelout\\RelationshipEvents\\Tests\\": "tests/"
+            "Artificertech\\RelationshipEvents\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "stable",
     "extra": {
         "laravel": {
             "providers": [
-                "Chelout\\RelationshipEvents\\RelationshipEventsServiceProvider"
+                "Artificertech\\RelationshipEvents\\RelationshipEventsServiceProvider"
             ]
         }
     }

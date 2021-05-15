@@ -1,8 +1,8 @@
 <?php
 
-namespace Chelout\RelationshipEvents\Tests;
+namespace Artificertech\RelationshipEvents\Tests;
 
-use Chelout\RelationshipEvents\RelationshipEventsServiceProvider;
+use Artificertech\RelationshipEvents\RelationshipEventsServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase

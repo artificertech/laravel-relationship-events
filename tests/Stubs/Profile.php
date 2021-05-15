@@ -1,8 +1,8 @@
 <?php
 
-namespace Chelout\RelationshipEvents\Tests\Stubs;
+namespace Artificertech\RelationshipEvents\Tests\Stubs;
 
-use Chelout\RelationshipEvents\Concerns\HasBelongsToEvents;
+use Artificertech\RelationshipEvents\Concerns\HasBelongsToEvents;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

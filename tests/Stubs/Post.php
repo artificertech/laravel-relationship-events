@@ -1,9 +1,9 @@
 <?php
 
-namespace Chelout\RelationshipEvents\Tests\Stubs;
+namespace Artificertech\RelationshipEvents\Tests\Stubs;
 
-use Chelout\RelationshipEvents\Concerns\HasMorphManyEvents;
-use Chelout\RelationshipEvents\Concerns\HasMorphToManyEvents;
+use Artificertech\RelationshipEvents\Concerns\HasMorphManyEvents;
+use Artificertech\RelationshipEvents\Concerns\HasMorphToManyEvents;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

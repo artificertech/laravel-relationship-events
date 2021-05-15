@@ -1,6 +1,6 @@
 <?php
 
-namespace Chelout\RelationshipEvents\Traits;
+namespace Artificertech\RelationshipEvents\Traits;
 
 use Illuminate\Contracts\Events\Dispatcher;
 

@@ -8,7 +8,7 @@
 namespace App\Models;
 
 use App\User;
-use Chelout\RelationshipEvents\Concerns\HasManyEvents;
+use Artificertech\RelationshipEvents\Concerns\HasManyEvents;
 use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
@@ -89,7 +89,7 @@ There is also inverse relation ```User``` belongs to ```Country```
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Chelout\RelationshipEvents\Concerns\HasBelongsToEvents;
+use Artificertech\RelationshipEvents\Concerns\HasBelongsToEvents;
 
 class User extends Model
 {

@@ -1,16 +1,16 @@
 <?php
 
-namespace Chelout\RelationshipEvents;
+namespace Artificertech\RelationshipEvents;
 
-use Chelout\RelationshipEvents\Contracts\EventDispatcher;
-use Chelout\RelationshipEvents\Traits\HasEventDispatcher;
+use Artificertech\RelationshipEvents\Contracts\EventDispatcher;
+use Artificertech\RelationshipEvents\Traits\HasEventDispatcher;
 use Illuminate\Database\Eloquent\Relations\MorphTo as MorphToBase;
 
 /**
  * Class MorphTo.
  *
  *
- * @property-read \Chelout\RelationshipEvents\Concerns\HasMorphToEvents $parent
+ * @property-read \Artificertech\RelationshipEvents\Concerns\HasMorphToEvents $parent
  */
 class MorphTo extends MorphToBase implements EventDispatcher
 {

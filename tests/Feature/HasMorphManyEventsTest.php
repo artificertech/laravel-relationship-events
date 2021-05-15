@@ -1,10 +1,10 @@
 <?php
 
-namespace Chelout\RelationshipEvents\Tests\Feature;
+namespace Artificertech\RelationshipEvents\Tests\Feature;
 
-use Chelout\RelationshipEvents\Tests\Stubs\Comment;
-use Chelout\RelationshipEvents\Tests\Stubs\Post;
-use Chelout\RelationshipEvents\Tests\TestCase;
+use Artificertech\RelationshipEvents\Tests\Stubs\Comment;
+use Artificertech\RelationshipEvents\Tests\Stubs\Post;
+use Artificertech\RelationshipEvents\Tests\TestCase;
 use Illuminate\Support\Facades\Event;
 
 class HasMorphManyEventsTest extends TestCase

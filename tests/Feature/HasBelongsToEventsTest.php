@@ -1,10 +1,10 @@
 <?php
 
-namespace Chelout\RelationshipEvents\Tests\Feature;
+namespace Artificertech\RelationshipEvents\Tests\Feature;
 
-use Chelout\RelationshipEvents\Tests\Stubs\Profile;
-use Chelout\RelationshipEvents\Tests\Stubs\User;
-use Chelout\RelationshipEvents\Tests\TestCase;
+use Artificertech\RelationshipEvents\Tests\Stubs\Profile;
+use Artificertech\RelationshipEvents\Tests\Stubs\User;
+use Artificertech\RelationshipEvents\Tests\TestCase;
 use Illuminate\Support\Facades\Event;
 
 class HasBelongsToEventsTest extends TestCase

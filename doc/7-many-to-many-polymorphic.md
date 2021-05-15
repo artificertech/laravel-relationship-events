@@ -8,7 +8,7 @@
 namespace App\Models;
 
 use App\Tag;
-use Chelout\RelationshipEvents\Concerns\HasMorphToManyEvents;
+use Artificertech\RelationshipEvents\Concerns\HasMorphToManyEvents;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -107,7 +107,7 @@ There is also inverse relation ```Tag``` morphed by ```Post```
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Chelout\RelationshipEvents\Concerns\HasBelongsToEvents;
+use Artificertech\RelationshipEvents\Concerns\HasBelongsToEvents;
 
 class Tag extends Model
 {

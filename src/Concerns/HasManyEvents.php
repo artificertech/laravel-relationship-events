@@ -1,8 +1,8 @@
 <?php
 
-namespace Chelout\RelationshipEvents\Concerns;
+namespace Artificertech\RelationshipEvents\Concerns;
 
-use Chelout\RelationshipEvents\HasMany;
+use Artificertech\RelationshipEvents\HasMany;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * Trait HasManyEvents.
  *
  *
- * @mixin \Chelout\RelationshipEvents\Traits\HasDispatchableEvents
+ * @mixin \Artificertech\RelationshipEvents\Traits\HasDispatchableEvents
  */
 trait HasManyEvents
 {

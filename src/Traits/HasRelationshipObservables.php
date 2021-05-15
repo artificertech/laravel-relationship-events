@@ -1,6 +1,6 @@
 <?php
 
-namespace Chelout\RelationshipEvents\Traits;
+namespace Artificertech\RelationshipEvents\Traits;
 
 use Illuminate\Support\Str;
 use ReflectionClass;
@@ -29,7 +29,7 @@ trait HasRelationshipObservables
         $methods = collect(
             class_uses(static::class)
         )->filter(function ($trait) {
-            return Str::startsWith($trait, 'Chelout\RelationshipEvents\Concerns');
+            return Str::startsWith($trait, 'Artificertech\RelationshipEvents\Concerns');
         })->flatMap(function ($trait) {
             $trait = new ReflectionClass($trait);
             $methods = $trait->getMethods(ReflectionMethod::IS_PUBLIC);

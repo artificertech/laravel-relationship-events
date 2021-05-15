@@ -3,11 +3,13 @@
 
 Missing relationship events for Laravel
 
+This package was intitally forked from https://github.com/chelout/laravel-relationship-events which is not being actively developed. This package is a different take on the original idea that allows relationship event listeners to be created on a per-relationship basis
+
 <p align="center">
- <a href="https://github.com/chelout/laravel-relationship-events/actions"><img src="https://github.com/chelout/laravel-relationship-events/workflows/tests/badge.svg" alt="Build Status"></a>
- <a href="https://packagist.org/packages/chelout/laravel-relationship-events"><img src="https://poser.pugx.org/chelout/laravel-relationship-events/d/total.svg" alt="Total Downloads"></a>
- <a href="https://packagist.org/packages/chelout/laravel-relationship-events"><img src="https://poser.pugx.org/chelout/laravel-relationship-events/v/stable.svg" alt="Latest Stable Version"></a>
- <a href="https://packagist.org/packages/chelout/laravel-relationship-events"><img src="https://poser.pugx.org/chelout/laravel-relationship-events/license.svg" alt="License"></a>
+ <a href="https://github.com/artificertech/laravel-relationship-events/actions"><img src="https://github.com/artificertech/laravel-relationship-events/workflows/tests/badge.svg" alt="Build Status"></a>
+ <a href="https://packagist.org/packages/artificertech/laravel-relationship-events"><img src="https://poser.pugx.org/artificertech/laravel-relationship-events/d/total.svg" alt="Total Downloads"></a>
+ <a href="https://packagist.org/packages/artificertech/laravel-relationship-events"><img src="https://poser.pugx.org/artificertech/laravel-relationship-events/v/stable.svg" alt="Latest Stable Version"></a>
+ <a href="https://packagist.org/packages/artificertech/laravel-relationship-events"><img src="https://poser.pugx.org/artificertech/laravel-relationship-events/license.svg" alt="License"></a>
  </p>
 
 ## Install
@@ -16,12 +18,12 @@ Missing relationship events for Laravel
 
 #### Stable branch:
 ```
-composer require chelout/laravel-relationship-events
+composer require artificertech/laravel-relationship-events
 ```
 
 #### Development branch:
 ```
-composer require chelout/laravel-relationship-events:dev-master
+composer require artificertech/laravel-relationship-events:dev-master
 ```
 
 2. Use necessary trait in your model.
@@ -38,7 +40,7 @@ composer require chelout/laravel-relationship-events:dev-master
 
 ```php
 
-use Chelout\RelationshipEvents\Concerns\HasOneEvents;
+use Artificertech\RelationshipEvents\Concerns\HasOneEvents;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
@@ -66,7 +68,7 @@ class User extends Model
 
 ```php
 
-use Chelout\RelationshipEvents\Concerns\HasMorphToManyEvents;
+use Artificertech\RelationshipEvents\Concerns\HasMorphToManyEvents;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -102,8 +104,8 @@ It is possible to fire event classes via $dispatchesEvents properties and adding
 
 ```php
 
-use Chelout\RelationshipEvents\Concerns\HasOneEvents;
-use Chelout\RelationshipEvents\Traits\HasDispatchableEvents;
+use Artificertech\RelationshipEvents\Concerns\HasOneEvents;
+use Artificertech\RelationshipEvents\Traits\HasDispatchableEvents;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model

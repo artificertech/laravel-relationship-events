@@ -1,6 +1,6 @@
 <?php
 
-namespace Chelout\RelationshipEvents\Tests\Stubs;
+namespace Artificertech\RelationshipEvents\Tests\Stubs;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;

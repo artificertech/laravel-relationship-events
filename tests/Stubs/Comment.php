@@ -1,8 +1,8 @@
 <?php
 
-namespace Chelout\RelationshipEvents\Tests\Stubs;
+namespace Artificertech\RelationshipEvents\Tests\Stubs;
 
-use Chelout\RelationshipEvents\Concerns\HasMorphToEvents;
+use Artificertech\RelationshipEvents\Concerns\HasMorphToEvents;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

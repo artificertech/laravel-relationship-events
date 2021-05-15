@@ -1,8 +1,8 @@
 <?php
 
-namespace Chelout\RelationshipEvents\Concerns;
+namespace Artificertech\RelationshipEvents\Concerns;
 
-use Chelout\RelationshipEvents\HasOne;
+use Artificertech\RelationshipEvents\HasOne;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * Trait HasOneEvents.
  *
  *
- * @mixin \Chelout\RelationshipEvents\Traits\HasDispatchableEvents
+ * @mixin \Artificertech\RelationshipEvents\Traits\HasDispatchableEvents
  */
 trait HasOneEvents
 {
@@ -102,43 +102,5 @@ trait HasOneEvents
     public static function hasOneUpdated($callback)
     {
         static::registerModelHasOneEvent('hasOneUpdated', $callback);
-    }
-
-    /**
-     * Fire the given event for the model relationship.
-     *
-     * @param string $event
-     * @param mixed  $related
-     * @param bool   $halt
-     *
-     * @return mixed
-     */
-    public function fireModelHasOneEvent($event, $related = null, $halt = true)
-    {
-        if (! isset(static::$dispatcher)) {
-            return true;
-        }
-
-        $event = 'hasOne' . ucfirst($event);
-
-        // First, we will get the proper method to call on the event dispatcher, and then we
-        // will attempt to fire a custom, object based event for the given event. If that
-        // returns a result we can return that result, or we'll call the string events.
-        $method = $halt ? 'until' : 'dispatch';
-
-        $result = $this->filterModelEventResults(
-            $this->fireCustomModelEvent($event, $method, $related)
-        );
-
-        if (false === $result) {
-            return false;
-        }
-
-        return ! empty($result) ? $result : static::$dispatcher->{$method}(
-            "eloquent.{$event}: " . static::class, [
-                $this,
-                $related,
-            ]
-        );
     }
 }

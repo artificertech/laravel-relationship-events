@@ -1,6 +1,6 @@
 <?php
 
-namespace Chelout\RelationshipEvents\Helpers;
+namespace Artificertech\RelationshipEvents\Helpers;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;

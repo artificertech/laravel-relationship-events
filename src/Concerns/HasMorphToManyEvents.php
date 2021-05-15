@@ -1,9 +1,9 @@
 <?php
 
-namespace Chelout\RelationshipEvents\Concerns;
+namespace Artificertech\RelationshipEvents\Concerns;
 
-use Chelout\RelationshipEvents\Helpers\AttributesMethods;
-use Chelout\RelationshipEvents\MorphToMany;
+use Artificertech\RelationshipEvents\Helpers\AttributesMethods;
+use Artificertech\RelationshipEvents\MorphToMany;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * Trait HasMorphToManyEvents.
  *
  *
- * @mixin \Chelout\RelationshipEvents\Traits\HasDispatchableEvents
+ * @mixin \Artificertech\RelationshipEvents\Traits\HasDispatchableEvents
  */
 trait HasMorphToManyEvents
 {
