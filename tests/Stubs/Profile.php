@@ -2,14 +2,14 @@
 
 namespace Artificertech\RelationshipEvents\Tests\Stubs;
 
-use Artificertech\RelationshipEvents\Concerns\HasBelongsToEvents;
+use Artificertech\RelationshipEvents\Concerns\HasRelationshipEvents;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class Profile extends Model
 {
-    use HasBelongsToEvents;
+    use HasRelationshipEvents;
 
     protected $guarded = [];
 

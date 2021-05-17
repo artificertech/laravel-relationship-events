@@ -2,20 +2,14 @@
 
 namespace Artificertech\RelationshipEvents\Tests\Stubs;
 
-use Artificertech\RelationshipEvents\Concerns\HasBelongsToManyEvents;
-use Artificertech\RelationshipEvents\Concerns\HasManyEvents;
-use Artificertech\RelationshipEvents\Concerns\HasMorphOneEvents;
-use Artificertech\RelationshipEvents\Concerns\HasOneEvents;
+use Artificertech\RelationshipEvents\Concerns\HasRelationshipEvents;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class User extends Model
 {
-    use HasOneEvents;
-    use HasManyEvents;
-    use HasMorphOneEvents;
-    use HasBelongsToManyEvents;
+    use HasRelationshipEvents;
 
     public static function setupTable()
     {

@@ -16,8 +16,6 @@ class BelongsTo extends BelongsToBase implements EventDispatcher
 {
     use HasEventDispatcher;
 
-    protected static $relationEventName = 'belongsTo';
-
     /**
      * Associate the model instance to the given parent.
      *
@@ -27,11 +25,18 @@ class BelongsTo extends BelongsToBase implements EventDispatcher
      */
     public function associate($model)
     {
-        $this->parent->fireModelBelongsToEvent('associating', $this->relationName, $model);
+        // If the "assoicating" event returns false we'll bail out of the associate and return
+        // false, indicating that the associate failed. This provides a chance for any
+        // listeners to cancel associate operations if validations fail or whatever.
+        if ($this->child->fireModelBelongsToEvent('associating', $this->relationName, $model) === false) {
+            return false;
+        }
 
         $result = parent::associate($model);
 
-        $this->parent->fireModelBelongsToEvent('associated', $this->relationName, $model);
+        if ($result) {
+            $this->child->fireModelBelongsToEvent('associated', $this->relationName, $model);
+        }
 
         return $result;
     }
@@ -45,32 +50,17 @@ class BelongsTo extends BelongsToBase implements EventDispatcher
     {
         $parent = $this->getResults();
 
-        $this->parent->fireModelBelongsToEvent('dissociating', $this->relationName, $parent);
+        // If the "dissociating" event returns false we'll bail out of the dissociate and return
+        // false, indicating that the dissociate failed. This provides a chance for any
+        // listeners to cancel dissociate operations if validations fail or whatever.
+        if ($this->child->fireModelBelongsToEvent('dissociating', $this->relationName, $parent) === false) {
+            return false;
+        }
 
         $result = parent::dissociate();
 
-        if (! is_null($parent)) {
-            $this->parent->fireModelBelongsToEvent('dissociated', $this->relationName, $parent);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Update the parent model on the relationship.
-     *
-     * @param array $attributes
-     *
-     * @return mixed
-     */
-    public function update(array $attributes)
-    {
-        $related = $this->getResults();
-
-        $this->parent->fireModelBelongsToEvent('updating', $this->relationName, $related);
-
-        if ($result = $related->fill($attributes)->save()) {
-            $this->parent->fireModelBelongsToEvent('updated', $this->relationName, $related);
+        if (!is_null($parent)) {
+            $this->child->fireModelBelongsToEvent('dissociated', $this->relationName, $parent);
         }
 
         return $result;
