@@ -26,13 +26,13 @@ class HasManyEventsTest extends TestCase
         $post = $user->posts()->create([]);
 
         Event::assertDispatched(
-            'eloquent.hasManyCreating: ' . User::class,
+            'eloquent.postsCreating: ' . User::class,
             function ($event, $callback) use ($user, $post) {
                 return $callback[0]->is($user) && $callback[1]->is($post);
             }
         );
         Event::assertDispatched(
-            'eloquent.hasManyCreated: ' . User::class,
+            'eloquent.postsCreated: ' . User::class,
             function ($event, $callback) use ($user, $post) {
                 return $callback[0]->is($user) && $callback[1]->is($post);
             }
@@ -48,38 +48,15 @@ class HasManyEventsTest extends TestCase
         $post = $user->posts()->save(new Post);
 
         Event::assertDispatched(
-            'eloquent.hasManySaving: ' . User::class,
+            'eloquent.postsSaving: ' . User::class,
             function ($event, $callback) use ($user, $post) {
                 return $callback[0]->is($user) && $callback[1]->is($post);
             }
         );
         Event::assertDispatched(
-            'eloquent.hasManySaved: ' . User::class,
+            'eloquent.postsSaved: ' . User::class,
             function ($event, $callback) use ($user, $post) {
                 return $callback[0]->is($user) && $callback[1]->is($post);
-            }
-        );
-    }
-
-    /** @test */
-    public function it_fires_hasManyUpdating_and_hasManyUpdated_when_belonged_model_with_many_updated()
-    {
-        Event::fake();
-
-        $user = User::create();
-        $post = $user->posts()->create([]);
-        $user->posts()->update([]);
-
-        Event::assertDispatched(
-            'eloquent.hasManyUpdating: ' . User::class,
-            function ($event, $callback) use ($user, $post) {
-                return $callback[0]->is($user) && $callback[1][0]->is($post);
-            }
-        );
-        Event::assertDispatched(
-            'eloquent.hasManyUpdated: ' . User::class,
-            function ($event, $callback) use ($user, $post) {
-                return $callback[0]->is($user) && $callback[1][0]->is($post);
             }
         );
     }

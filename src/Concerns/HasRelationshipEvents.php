@@ -17,6 +17,7 @@ trait HasRelationshipEvents
 {
     use HandlesBelongsToEvents;
     use HandlesHasManyEvents;
+    use HandlesHasOneEvents;
 
     /**
      * @var array
