@@ -7,7 +7,7 @@ use Artificertech\RelationshipEvents\Tests\Stubs\User;
 use Artificertech\RelationshipEvents\Tests\TestCase;
 use Illuminate\Support\Facades\Event;
 
-class RegistersBelongsToEventsTest extends TestCase
+class BelongsToEventsTest extends TestCase
 {
     public function setup(): void
     {
