@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * Trait HasBelongsToEvents.
  *
  */
-trait RegistersBelongsToEvents
+trait HandlesBelongsToEvents
 {
     /**
      * Register a deleted model event with the dispatcher.
