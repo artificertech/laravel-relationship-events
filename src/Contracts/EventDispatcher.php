@@ -24,4 +24,20 @@ interface EventDispatcher
      * Unset the event dispatcher for models.
      */
     public static function unsetEventDispatcher();
+
+    /**
+     * Turn on events for this relationship
+     */
+    public function withEvents(string $relationship = null);
+
+    /**
+     * Turn off events for this relationship
+     */
+    public function withoutEvents();
+
+
+    /**
+     * return whether or not this relationship will dispatch events
+     */
+    public function willDispatchEvents(): bool;
 }

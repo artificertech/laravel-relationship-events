@@ -3,6 +3,7 @@
 namespace Artificertech\RelationshipEvents\Concerns;
 
 use Artificertech\RelationshipEvents\BelongsTo;
+use Artificertech\RelationshipEvents\BelongsToWithEvents;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -61,7 +62,7 @@ trait RegistersBelongsToEvents
      * @param string                                $ownerKey
      * @param string                                $relation
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Artificertech\RelationshipEvent\BelongsTo
      */
     protected function newBelongsTo(Builder $query, Model $child, $foreignKey, $ownerKey, $relation)
     {
