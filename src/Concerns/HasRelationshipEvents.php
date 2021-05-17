@@ -15,7 +15,8 @@ use ReflectionMethod;
  */
 trait HasRelationshipEvents
 {
-    use RegistersBelongsToEvents;
+    use HandlesBelongsToEvents;
+    use HandlesHasManyEvents;
 
     /**
      * @var array
@@ -91,7 +92,7 @@ trait HasRelationshipEvents
      *
      * @return mixed|null
      */
-    protected function fireCustomModelEvent($event, $method, ...$params)
+    protected function fireCustomModelRelationshipEvent($event, $method, ...$params)
     {
         if (!isset($this->dispatchesEvents[$event])) {
             return;
@@ -144,14 +145,14 @@ trait HasRelationshipEvents
         $method = $halt ? 'until' : 'dispatch';
 
         $result = $this->filterModelEventResults(
-            $this->fireCustomModelEvent($event, $method, $params)
+            $this->fireCustomModelRelationshipEvent($event, $method, $params)
         );
 
         if (false === $result) {
             return false;
         }
 
-        return !empty($result) ? $result : static::$dispatcher->{$method}(
+        $result = !empty($result) ? $result : static::$dispatcher->{$method}(
             "eloquent.{$event}: " . static::class,
             $params
         );

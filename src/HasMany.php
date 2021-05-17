@@ -4,7 +4,7 @@ namespace Artificertech\RelationshipEvents;
 
 use Artificertech\RelationshipEvents\Contracts\EventDispatcher;
 use Artificertech\RelationshipEvents\Traits\HasEventDispatcher;
-use Artificertech\RelationshipEvents\Traits\HasOneOrManyMethods;
+use Artificertech\RelationshipEvents\Traits\HasOneOrManyEvents;
 use Illuminate\Database\Eloquent\Relations\HasMany as HasManyBase;
 
 /**
@@ -13,5 +13,5 @@ use Illuminate\Database\Eloquent\Relations\HasMany as HasManyBase;
 class HasMany extends HasManyBase implements EventDispatcher
 {
     use HasEventDispatcher;
-    use HasOneOrManyMethods;
+    use HasOneOrManyEvents;
 }
