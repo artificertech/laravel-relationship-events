@@ -22,6 +22,16 @@ class User extends Model
         static::hasManySaving('posts', function ($user, $post) {
             if ($post->name == 'badName') return false;
         });
+
+        static::hasOneCreating('profile', function ($user, $profile) {
+            if ($profile->name == 'badName') {
+                return false;
+            }
+        });
+
+        static::hasOneSaving('profile', function ($user, $profile) {
+            if ($profile->name == 'badName') return false;
+        });
     }
 
     public static function setupTable()

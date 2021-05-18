@@ -40,6 +40,15 @@ class HasOneEventsTest extends TestCase
     }
 
     /** @test */
+    public function if_false_is_returned_from_the_creating_event_then_the_create_is_canceled()
+    {
+        $user = User::create();
+        $user->profile()->create(['name' => 'badName']);
+
+        $this->assertEquals(null, $user->profile);
+    }
+
+    /** @test */
     public function it_fires_hasOneSaving_and_hasOneSaved_when_a_belonged_model_saved()
     {
         Event::fake();
@@ -59,5 +68,14 @@ class HasOneEventsTest extends TestCase
                 return $callback[0]->is($user) && $callback[1]->is($profile);
             }
         );
+    }
+
+    /** @test */
+    public function if_false_is_returned_from_the_saving_event_then_the_save_is_canceled()
+    {
+        $user = User::create();
+        $user->profile()->save(new Profile(['name' => 'badName']));
+
+        $this->assertEquals(null, $user->profile);
     }
 }
