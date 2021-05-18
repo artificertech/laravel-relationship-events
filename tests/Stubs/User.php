@@ -11,6 +11,19 @@ class User extends Model
 {
     use HasRelationshipEvents;
 
+    protected static function booting()
+    {
+        static::hasManyCreating('posts', function ($user, $post) {
+            if ($post->name == 'badName') {
+                return false;
+            }
+        });
+
+        static::hasManySaving('posts', function ($user, $post) {
+            if ($post->name == 'badName') return false;
+        });
+    }
+
     public static function setupTable()
     {
         Schema::create('users', function (Blueprint $table) {

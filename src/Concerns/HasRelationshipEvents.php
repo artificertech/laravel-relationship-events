@@ -15,6 +15,7 @@ use ReflectionMethod;
 trait HasRelationshipEvents
 {
     use HandlesBelongsToEvents;
+    // use HandlesBelongsToManyEvents;
     use HandlesHasManyEvents;
     use HandlesHasOneEvents;
     use HandlesMorphToEvents;
@@ -87,28 +88,6 @@ trait HasRelationshipEvents
     }
 
     /**
-     * Fire a custom model event for the given event.
-     *
-     * @param string $event
-     * @param string $method
-     * @param array  $params
-     *
-     * @return mixed|null
-     */
-    protected function fireCustomModelRelationshipEvent($event, $method, ...$params)
-    {
-        if (!isset($this->dispatchesEvents[$event])) {
-            return;
-        }
-
-        $result = static::$dispatcher->$method(new $this->dispatchesEvents[$event]($this, $params));
-
-        if (!is_null($result)) {
-            return $result;
-        }
-    }
-
-    /**
      * Register a model event with the dispatcher.
      *
      * @param string          $event
@@ -155,7 +134,7 @@ trait HasRelationshipEvents
             return false;
         }
 
-        $result = !empty($result) ? $result : static::$dispatcher->{$method}(
+        return !empty($result) ? $result : static::$dispatcher->{$method}(
             "eloquent.{$event}: " . static::class,
             $params
         );
@@ -164,5 +143,27 @@ trait HasRelationshipEvents
     protected function getEventName($event, $relation)
     {
         return $relation . ucfirst($event);
+    }
+
+    /**
+     * Fire a custom model event for the given event.
+     *
+     * @param string $event
+     * @param string $method
+     * @param array  $params
+     *
+     * @return mixed|null
+     */
+    protected function fireCustomModelRelationshipEvent($event, $method, ...$params)
+    {
+        if (!isset($this->dispatchesEvents[$event])) {
+            return;
+        }
+
+        $result = static::$dispatcher->$method(new $this->dispatchesEvents[$event]($this, $params));
+
+        if (!is_null($result)) {
+            return $result;
+        }
     }
 }
