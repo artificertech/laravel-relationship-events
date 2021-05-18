@@ -19,6 +19,7 @@ trait HasRelationshipEvents
     use HandlesHasOneEvents;
     use HandlesMorphToEvents;
     use HandlesMorphOneEvents;
+    use HandlesMorphManyEvents;
 
     /**
      * @var array

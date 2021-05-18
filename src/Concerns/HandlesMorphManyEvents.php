@@ -2,24 +2,24 @@
 
 namespace Artificertech\RelationshipEvents\Concerns;
 
-use Artificertech\RelationshipEvents\MorphTo;
+use Artificertech\RelationshipEvents\MorphMany;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Trait HandlesMorphToEvents.
+ * Trait HandlesMorphManyEvents.
  *
  */
-trait HandlesMorphToEvents
+trait HandlesMorphManyEvents
 {
     /**
      * Register a deleted model event with the dispatcher.
      *
      * @param \Closure|string $callback
      */
-    public static function morphToAssociating($relation, $callback)
+    public static function morphManySaving($relation, $callback)
     {
-        static::registerRelationshipEvent($relation . 'Associating', $callback);
+        static::registerRelationshipEvent($relation . 'Saving', $callback);
     }
 
     /**
@@ -27,9 +27,9 @@ trait HandlesMorphToEvents
      *
      * @param \Closure|string $callback
      */
-    public static function morphToAssociated($relation, $callback)
+    public static function morphManySaved($relation, $callback)
     {
-        static::registerRelationshipEvent($relation . 'Associated', $callback);
+        static::registerRelationshipEvent($relation . 'Saved', $callback);
     }
 
     /**
@@ -37,9 +37,9 @@ trait HandlesMorphToEvents
      *
      * @param \Closure|string $callback
      */
-    public static function morphToDissociating($relation, $callback)
+    public static function morphManyCreating($relation, $callback)
     {
-        static::registerRelationshipEvent($relation . 'Dissociating', $callback);
+        static::registerRelationshipEvent($relation . 'Creating', $callback);
     }
 
     /**
@@ -47,25 +47,24 @@ trait HandlesMorphToEvents
      *
      * @param \Closure|string $callback
      */
-    public static function morphToDissociated($relation, $callback)
+    public static function morphManyCreated($relation, $callback)
     {
-        static::registerRelationshipEvent($relation . 'Dissociated', $callback);
+        static::registerRelationshipEvent($relation . 'Created', $callback);
     }
 
     /**
-     * Instantiate a new MorphTo relationship.
+     * Instantiate a new MorphMany relationship.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  \Illuminate\Database\Eloquent\Model  $parent
-     * @param  string  $foreignKey
-     * @param  string  $ownerKey
      * @param  string  $type
-     * @param  string  $relation
-     * @return \Artificertech\RelationshipEvent\MorphTo
+     * @param  string  $id
+     * @param  string  $localKey
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    protected function newMorphTo(Builder $query, Model $parent, $foreignKey, $ownerKey, $type, $relation)
+    protected function newMorphMany(Builder $query, Model $parent, $type, $id, $localKey)
     {
-        return new MorphTo($query, $parent, $foreignKey, $ownerKey, $type, $relation);
+        return new MorphMany($query, $parent, $type, $id, $localKey);
     }
 
     /**
@@ -74,10 +73,11 @@ trait HandlesMorphToEvents
      * @param string                                         $event
      * @param string                                         $relation
      * @param \Illuminate\Database\Eloquent\Model|int|string $parent
+     * @param bool                                           $halt
      *
      * @return bool
      */
-    public function fireModelMorphToEvent($event, $relation, $parent)
+    public function fireModelMorphManyEvent($event, $relation, $parent)
     {
         return $this->fireModelRelationshipEvent($event, $relation, true, $this, $parent);
     }
