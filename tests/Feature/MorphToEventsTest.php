@@ -6,7 +6,6 @@ use Artificertech\RelationshipEvents\Tests\Stubs\Comment;
 use Artificertech\RelationshipEvents\Tests\Stubs\Post;
 use Artificertech\RelationshipEvents\Tests\TestCase;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Log;
 
 class MorphToEventsTest extends TestCase
 {

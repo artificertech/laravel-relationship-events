@@ -2,7 +2,6 @@
 
 namespace Artificertech\RelationshipEvents\Concerns;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use ReflectionClass;
 use ReflectionMethod;

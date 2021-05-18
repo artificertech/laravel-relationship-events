@@ -3,7 +3,6 @@
 namespace Artificertech\RelationshipEvents\Traits;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
 
 /**
  * Trait HasOneOrManyMethods.

@@ -6,7 +6,6 @@ use Artificertech\RelationshipEvents\Tests\Stubs\Profile;
 use Artificertech\RelationshipEvents\Tests\Stubs\User;
 use Artificertech\RelationshipEvents\Tests\TestCase;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Log;
 
 class HasOneEventsTest extends TestCase
 {
