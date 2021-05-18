@@ -2,14 +2,14 @@
 
 namespace Artificertech\RelationshipEvents\Tests\Stubs;
 
-use Artificertech\RelationshipEvents\Concerns\HasMorphToEvents;
+use Artificertech\RelationshipEvents\Concerns\HasRelationshipEvents;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class Comment extends Model
 {
-    use HasMorphToEvents;
+    use HasRelationshipEvents;
 
     protected $guarded = [];
 
@@ -25,6 +25,6 @@ class Comment extends Model
 
     public function post()
     {
-        return $this->morphTo(Post::class);
+        return $this->morphTo(Post::class)->withEvents();
     }
 }

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo as MorphToBase;
  * Class MorphTo.
  *
  *
- * @property-read \Artificertech\RelationshipEvents\Concerns\HasMorphToEvents $parent
+ * @property-read \Artificertech\RelationshipEvents\Concerns\HasRelationshipEvents $parent
  */
 class MorphTo extends MorphToBase implements EventDispatcher
 {
@@ -19,17 +19,24 @@ class MorphTo extends MorphToBase implements EventDispatcher
     /**
      * Associate the model instance to the given parent.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param \Illuminate\Database\Eloquent\Model|int|string $model
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function associate($model)
     {
-        $this->parent->fireModelMorphToEvent('associating', $this->relationName, $model);
+        // If the "associating" event returns false we'll bail out of the associate and return
+        // false, indicating that the associate failed. This provides a chance for any
+        // listeners to cancel associate operations if validations fail or whatever.
+        if ($this->willDispatchEvents() && $this->child->fireModelMorphToEvent('associating', $this->eventRelationship, $model) === false) {
+            return false;
+        }
 
         $result = parent::associate($model);
 
-        $this->parent->fireModelMorphToEvent('associated', $this->relationName, $model);
+        if ($result && $this->willDispatchEvents()) {
+            $this->child->fireModelMorphToEvent('associated', $this->eventRelationship, $model);
+        }
 
         return $result;
     }
@@ -43,33 +50,17 @@ class MorphTo extends MorphToBase implements EventDispatcher
     {
         $parent = $this->getResults();
 
-        $this->parent->fireModelMorphToEvent('dissociating', $this->relationName, $parent);
+        // If the "dissociating" event returns false we'll bail out of the dissociate and return
+        // false, indicating that the dissociate failed. This provides a chance for any
+        // listeners to cancel dissociate operations if validations fail or whatever.
+        if ($this->willDispatchEvents() && $this->child->fireModelMorphToEvent('dissociating', $this->eventRelationship, $parent) === false) {
+            return false;
+        }
 
         $result = parent::dissociate();
 
-        if (! is_null($parent)) {
-            $this->parent->fireModelMorphToEvent('dissociated', $this->relationName, $parent);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Update the parent model on the relationship.
-     *
-     * @param array $attributes
-     *
-     * @return mixed
-     */
-    public function update(array $attributes)
-    {
-        $related = $this->getResults();
-
-        $this->parent->fireModelMorphToEvent('updating', $this->relationName, $related);
-
-        $result = $related->fill($attributes)->save();
-        if ($related && $result) {
-            $this->parent->fireModelMorphToEvent('updated', $this->relationName, $related);
+        if (!is_null($parent) && $this->willDispatchEvents()) {
+            $this->child->fireModelMorphToEvent('dissociated', $this->eventRelationship, $parent);
         }
 
         return $result;

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo as BelongsToBase;
  * Class BelongsTo.
  *
  *
- * @property-read \Artificertech\RelationshipEvents\Concerns\HasBelongsToEvents $parent
+ * @property-read \Artificertech\RelationshipEvents\Concerns\HasRelationshipEvents $parent
  */
 class BelongsTo extends BelongsToBase implements EventDispatcher
 {

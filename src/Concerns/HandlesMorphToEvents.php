@@ -2,23 +2,23 @@
 
 namespace Artificertech\RelationshipEvents\Concerns;
 
-use Artificertech\RelationshipEvents\BelongsTo;
-use Artificertech\RelationshipEvents\BelongsToWithEvents;
+use Artificertech\RelationshipEvents\MorphTo;
+use Artificertech\RelationshipEvents\MorphToWithEvents;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Trait HandlesBelongsToEvents.
+ * Trait HandlesMorphToEvents.
  *
  */
-trait HandlesBelongsToEvents
+trait HandlesMorphToEvents
 {
     /**
      * Register a deleted model event with the dispatcher.
      *
      * @param \Closure|string $callback
      */
-    public static function belongsToAssociating($relation, $callback)
+    public static function morphToAssociating($relation, $callback)
     {
         static::registerRelationshipEvent($relation . 'Associating', $callback);
     }
@@ -28,7 +28,7 @@ trait HandlesBelongsToEvents
      *
      * @param \Closure|string $callback
      */
-    public static function belongsToAssociated($relation, $callback)
+    public static function morphToAssociated($relation, $callback)
     {
         static::registerRelationshipEvent($relation . 'Associated', $callback);
     }
@@ -38,7 +38,7 @@ trait HandlesBelongsToEvents
      *
      * @param \Closure|string $callback
      */
-    public static function belongsToDissociating($relation, $callback)
+    public static function morphToDissociating($relation, $callback)
     {
         static::registerRelationshipEvent($relation . 'Dissociating', $callback);
     }
@@ -48,25 +48,25 @@ trait HandlesBelongsToEvents
      *
      * @param \Closure|string $callback
      */
-    public static function belongsToDissociated($relation, $callback)
+    public static function morphToDissociated($relation, $callback)
     {
         static::registerRelationshipEvent($relation . 'Dissociated', $callback);
     }
 
     /**
-     * Instantiate a new BelongsTo relationship.
+     * Instantiate a new MorphTo relationship.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param \Illuminate\Database\Eloquent\Model   $child
-     * @param string                                $foreignKey
-     * @param string                                $ownerKey
-     * @param string                                $relation
-     *
-     * @return \Artificertech\RelationshipEvent\BelongsTo
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \Illuminate\Database\Eloquent\Model  $parent
+     * @param  string  $foreignKey
+     * @param  string  $ownerKey
+     * @param  string  $type
+     * @param  string  $relation
+     * @return \Artificertech\RelationshipEvent\MorphTo
      */
-    protected function newBelongsTo(Builder $query, Model $child, $foreignKey, $ownerKey, $relation)
+    protected function newMorphTo(Builder $query, Model $parent, $foreignKey, $ownerKey, $type, $relation)
     {
-        return new BelongsTo($query, $child, $foreignKey, $ownerKey, $relation);
+        return new MorphTo($query, $parent, $foreignKey, $ownerKey, $type, $relation);
     }
 
     /**
@@ -78,7 +78,7 @@ trait HandlesBelongsToEvents
      *
      * @return bool
      */
-    public function fireModelBelongsToEvent($event, $relation, $parent)
+    public function fireModelMorphToEvent($event, $relation, $parent)
     {
         return $this->fireModelRelationshipEvent($event, $relation, true, $this, $parent);
     }

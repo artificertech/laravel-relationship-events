@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Trait HasHasManyEvents.
+ * Trait HandlesHasManyEvents.
  *
  */
 trait HandlesHasManyEvents
