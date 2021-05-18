@@ -2,22 +2,22 @@
 
 namespace Artificertech\RelationshipEvents\Concerns;
 
-use Artificertech\RelationshipEvents\HasOne;
+use Artificertech\RelationshipEvents\MorphOne;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Trait HasHasOneEvents.
+ * Trait HasMorphOneEvents.
  *
  */
-trait HandlesHasOneEvents
+trait HandlesMorphOneEvents
 {
     /**
      * Register a deleted model event with the dispatcher.
      *
      * @param \Closure|string $callback
      */
-    public static function hasOneSaving($relation, $callback)
+    public static function morphOneSaving($relation, $callback)
     {
         static::registerRelationshipEvent($relation . 'Saving', $callback);
     }
@@ -27,7 +27,7 @@ trait HandlesHasOneEvents
      *
      * @param \Closure|string $callback
      */
-    public static function hasOneSaved($relation, $callback)
+    public static function morphOneSaved($relation, $callback)
     {
         static::registerRelationshipEvent($relation . 'Saved', $callback);
     }
@@ -37,7 +37,7 @@ trait HandlesHasOneEvents
      *
      * @param \Closure|string $callback
      */
-    public static function hasOneCreating($relation, $callback)
+    public static function morphOneCreating($relation, $callback)
     {
         static::registerRelationshipEvent($relation . 'Creating', $callback);
     }
@@ -47,24 +47,23 @@ trait HandlesHasOneEvents
      *
      * @param \Closure|string $callback
      */
-    public static function hasOneCreated($relation, $callback)
+    public static function morphOneCreated($relation, $callback)
     {
         static::registerRelationshipEvent($relation . 'Created', $callback);
     }
 
     /**
-     * Instantiate a new HasOne relationship.
+     * Instantiate a new MorphOne relationship.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param \Illuminate\Database\Eloquent\Model   $child
-     * @param string                                $foreignKey
-     * @param string                                $ownerKey
-     * @param string                                $relation
-     *
-     * @return \Artificertech\RelationshipEvent\HasOne
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  \Illuminate\Database\Eloquent\Model  $parent
+     * @param  string  $type
+     * @param  string  $id
+     * @param  string  $localKey
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
-    protected function newHasOne(Builder $query, Model $child, $foreignKey, $ownerKey)
+    protected function newMorphOne(Builder $query, Model $parent, $type, $id, $localKey)
     {
-        return new HasOne($query, $child, $foreignKey, $ownerKey);
+        return new MorphOne($query, $parent, $type, $id, $localKey);
     }
 }

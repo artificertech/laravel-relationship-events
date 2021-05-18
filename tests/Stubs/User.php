@@ -36,6 +36,6 @@ class User extends Model
 
     public function address()
     {
-        return $this->morphOne(Address::class, 'addressable');
+        return $this->morphOne(Address::class, 'addressable')->withEvents();
     }
 }

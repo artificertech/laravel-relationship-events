@@ -4,7 +4,7 @@ namespace Artificertech\RelationshipEvents;
 
 use Artificertech\RelationshipEvents\Contracts\EventDispatcher;
 use Artificertech\RelationshipEvents\Traits\HasEventDispatcher;
-use Artificertech\RelationshipEvents\Traits\HasOneOrManyMethods;
+use Artificertech\RelationshipEvents\Traits\HasOneOrManyEvents;
 use Illuminate\Database\Eloquent\Relations\MorphOne as MorphOneBase;
 
 /**
@@ -13,5 +13,5 @@ use Illuminate\Database\Eloquent\Relations\MorphOne as MorphOneBase;
 class MorphOne extends MorphOneBase implements EventDispatcher
 {
     use HasEventDispatcher;
-    use HasOneOrManyMethods;
+    use HasOneOrManyEvents;
 }
