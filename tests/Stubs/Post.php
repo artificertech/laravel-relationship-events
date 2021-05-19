@@ -13,6 +13,19 @@ class Post extends Model
 
     protected $guarded = [];
 
+    protected static function booting()
+    {
+        static::morphManyCreating('comments', function ($post, $comment) {
+            if ($comment->name == 'badName') {
+                return false;
+            }
+        });
+
+        static::morphManySaving('comments', function ($post, $comment) {
+            if ($comment->name == 'badName') return false;
+        });
+    }
+
     public static function setupTable()
     {
         Schema::create('posts', function (Blueprint $table) {
