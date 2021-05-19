@@ -67,18 +67,4 @@ trait HandlesBelongsToEvents
     {
         return new BelongsTo($query, $child, $foreignKey, $ownerKey, $relation);
     }
-
-    /**
-     * Fire the given event for the model relationship.
-     *
-     * @param string                                         $event
-     * @param string                                         $relation
-     * @param \Illuminate\Database\Eloquent\Model|int|string $parent
-     *
-     * @return bool
-     */
-    public function fireModelBelongsToEvent($event, $relation, $parent, $halt = true)
-    {
-        return $this->fireModelRelationshipEvent($event, $relation, $halt, $this, $parent);
-    }
 }
