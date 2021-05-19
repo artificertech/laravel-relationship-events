@@ -11,7 +11,18 @@ class Profile extends Model
 {
     use HasRelationshipEvents;
 
-    protected $guarded = [];
+    protected static function booting()
+    {
+        static::belongsToAssociating('user', function ($profile, $user) {
+            if ($user->name == 'badName') {
+                return false;
+            }
+        });
+
+        static::belongsToDissociating('user', function ($profile, $user) {
+            if ($user->name == 'badDissociateName') return false;
+        });
+    }
 
     public static function setupTable()
     {

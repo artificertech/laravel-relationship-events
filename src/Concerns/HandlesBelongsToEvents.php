@@ -77,8 +77,8 @@ trait HandlesBelongsToEvents
      *
      * @return bool
      */
-    public function fireModelBelongsToEvent($event, $relation, $parent)
+    public function fireModelBelongsToEvent($event, $relation, $parent, $halt = true)
     {
-        return $this->fireModelRelationshipEvent($event, $relation, true, $this, $parent);
+        return $this->fireModelRelationshipEvent($event, $relation, $halt, $this, $parent);
     }
 }

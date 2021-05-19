@@ -11,6 +11,8 @@ class User extends Model
 {
     use HasRelationshipEvents;
 
+    protected $fillable = ['name'];
+
     protected static function booting()
     {
         static::hasManyCreating('posts', function ($user, $post) {
@@ -38,6 +40,7 @@ class User extends Model
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }

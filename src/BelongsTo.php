@@ -5,6 +5,7 @@ namespace Artificertech\RelationshipEvents;
 use Artificertech\RelationshipEvents\Contracts\EventDispatcher;
 use Artificertech\RelationshipEvents\Traits\HasEventDispatcher;
 use Illuminate\Database\Eloquent\Relations\BelongsTo as BelongsToBase;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class BelongsTo.
@@ -28,14 +29,14 @@ class BelongsTo extends BelongsToBase implements EventDispatcher
         // If the "associating" event returns false we'll bail out of the associate and return
         // false, indicating that the associate failed. This provides a chance for any
         // listeners to cancel associate operations if validations fail or whatever.
-        if ($this->willDispatchEvents() && $this->child->fireModelBelongsToEvent('associating', $this->eventRelationship, $model) === false) {
+        if ($this->willDispatchEvents() && $this->child->fireModelBelongsToEvent('associating', $this->eventRelationship, $model, true) === false) {
             return false;
         }
 
         $result = parent::associate($model);
 
         if ($result && $this->willDispatchEvents()) {
-            $this->child->fireModelBelongsToEvent('associated', $this->eventRelationship, $model);
+            $this->child->fireModelBelongsToEvent('associated', $this->eventRelationship, $model, false);
         }
 
         return $result;
@@ -53,14 +54,14 @@ class BelongsTo extends BelongsToBase implements EventDispatcher
         // If the "dissociating" event returns false we'll bail out of the dissociate and return
         // false, indicating that the dissociate failed. This provides a chance for any
         // listeners to cancel dissociate operations if validations fail or whatever.
-        if ($this->willDispatchEvents() && $this->child->fireModelBelongsToEvent('dissociating', $this->eventRelationship, $parent) === false) {
+        if ($this->willDispatchEvents() && $this->child->fireModelBelongsToEvent('dissociating', $this->eventRelationship, $parent, true) === false) {
             return false;
         }
 
         $result = parent::dissociate();
 
         if (!is_null($parent) && $this->willDispatchEvents()) {
-            $this->child->fireModelBelongsToEvent('dissociated', $this->eventRelationship, $parent);
+            $this->child->fireModelBelongsToEvent('dissociated', $this->eventRelationship, $parent, false);
         }
 
         return $result;

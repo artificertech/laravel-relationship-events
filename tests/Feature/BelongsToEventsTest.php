@@ -40,6 +40,15 @@ class BelongsToEventsTest extends TestCase
     }
 
     /** @test */
+    public function if_false_is_returned_from_the_associating_event_then_the_associate_is_canceled()
+    {
+        $profile = Profile::create();
+        $profile->user()->associate(new User(['name' => 'badName']));
+
+        $this->assertEquals(null, $profile->user);
+    }
+
+    /** @test */
     public function it_fires_belongsToDissociating_and_belongsToDissociated_when_a_model_dissociated()
     {
         Event::fake();
@@ -60,5 +69,15 @@ class BelongsToEventsTest extends TestCase
                 return $callback[0]->is($profile) && $callback[1]->is($user);
             }
         );
+    }
+
+    /** @test */
+    public function if_false_is_returned_from_the_dissociating_event_then_the_dissociate_is_canceled()
+    {
+        $profile = Profile::create();
+        $profile->user()->associate($user = User::create(['name' => 'badDissociateName']));
+        $profile->user()->dissociate();
+
+        $this->assertTrue($profile->user->is($user));
     }
 }
