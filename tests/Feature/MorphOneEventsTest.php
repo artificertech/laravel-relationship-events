@@ -40,6 +40,15 @@ class MorphOneEventsTest extends TestCase
     }
 
     /** @test */
+    public function if_false_is_returned_from_the_creating_event_then_the_create_is_canceled()
+    {
+        $user = User::create();
+        $user->address()->create(['name' => 'badName']);
+
+        $this->assertEquals(null, $user->address);
+    }
+
+    /** @test */
     public function it_fires_morphOneSaving_and_morphOneSaved_when_belonged_model_with_morph_one_saved()
     {
         Event::fake();
@@ -59,5 +68,14 @@ class MorphOneEventsTest extends TestCase
                 return $callback[0]->is($user) && $callback[1]->is($address);
             }
         );
+    }
+
+    /** @test */
+    public function if_false_is_returned_from_the_saving_event_then_the_save_is_canceled()
+    {
+        $user = User::create();
+        $user->address()->save(new Address(['name' => 'badName']));
+
+        $this->assertEquals(null, $user->address);
     }
 }

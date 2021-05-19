@@ -11,12 +11,12 @@ class Profile extends Model
 {
     use HasRelationshipEvents;
 
+    protected $fillable = ['name'];
+
     protected static function booting()
     {
         static::belongsToAssociating('user', function ($profile, $user) {
-            if ($user->name == 'badName') {
-                return false;
-            }
+            if ($user->name == 'badName') return false;
         });
 
         static::belongsToDissociating('user', function ($profile, $user) {
@@ -29,6 +29,7 @@ class Profile extends Model
         Schema::create('profiles', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }

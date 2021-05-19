@@ -16,9 +16,7 @@ class User extends Model
     protected static function booting()
     {
         static::hasManyCreating('posts', function ($user, $post) {
-            if ($post->name == 'badName') {
-                return false;
-            }
+            if ($post->name == 'badName') return false;
         });
 
         static::hasManySaving('posts', function ($user, $post) {
@@ -26,13 +24,19 @@ class User extends Model
         });
 
         static::hasOneCreating('profile', function ($user, $profile) {
-            if ($profile->name == 'badName') {
-                return false;
-            }
+            if ($profile->name == 'badName') return false;
         });
 
         static::hasOneSaving('profile', function ($user, $profile) {
             if ($profile->name == 'badName') return false;
+        });
+
+        static::morphOneCreating('address', function ($user, $address) {
+            if ($address->name == 'badName') return false;
+        });
+
+        static::morphOneSaving('address', function ($user, $address) {
+            if ($address->name == 'badName') return false;
         });
     }
 

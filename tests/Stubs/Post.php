@@ -16,9 +16,7 @@ class Post extends Model
     protected static function booting()
     {
         static::morphManyCreating('comments', function ($post, $comment) {
-            if ($comment->name == 'badName') {
-                return false;
-            }
+            if ($comment->name == 'badName') return false;
         });
 
         static::morphManySaving('comments', function ($post, $comment) {

@@ -40,7 +40,7 @@ class HasManyEventsTest extends TestCase
     }
 
     /** @test */
-    public function it_fires_hasManyCreating_and_hasManyCrated_when_createMany_called_on_hasMany_relation()
+    public function it_fires_hasManyCreating_and_hasManyCreated_when_createMany_called_on_hasMany_relation()
     {
         Event::fake();
 
@@ -61,7 +61,7 @@ class HasManyEventsTest extends TestCase
     public function if_false_is_returned_from_the_creating_event_then_the_create_is_canceled()
     {
         $user = User::create();
-        $post = $user->posts()->create(['name' => 'badName']);
+        $user->posts()->create(['name' => 'badName']);
 
         $this->assertEquals(0, $user->posts->count());
     }
@@ -70,7 +70,7 @@ class HasManyEventsTest extends TestCase
     public function if_false_is_returned_from_the_creating_event_then_the_createMany_is_canceled_on_that_model_only()
     {
         $user = User::create();
-        $post = $user->posts()->createMany([[], ['name' => 'badName']]);
+        $user->posts()->createMany([[], ['name' => 'badName']]);
 
         $this->assertEquals(1, $user->posts->count());
     }
@@ -103,7 +103,7 @@ class HasManyEventsTest extends TestCase
         Event::fake();
 
         $user = User::create();
-        $posts = $user->posts()->saveMany([new Post, new Post()]);
+        $user->posts()->saveMany([new Post, new Post()]);
 
         Event::assertDispatched(
             'eloquent.postsSaving: ' . User::class,
@@ -119,7 +119,7 @@ class HasManyEventsTest extends TestCase
     public function if_false_is_returned_from_the_saving_event_then_the_save_is_canceled()
     {
         $user = User::create();
-        $post = $user->posts()->save(new Post(['name' => 'badName']));
+        $user->posts()->save(new Post(['name' => 'badName']));
 
         $this->assertEquals(0, $user->posts->count());
     }
