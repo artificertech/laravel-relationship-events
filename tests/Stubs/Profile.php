@@ -11,7 +11,7 @@ class Profile extends Model
 {
     use HasRelationshipEvents;
 
-    protected $fillable = ['name'];
+    protected $guarded = [];
 
     protected static function booting()
     {

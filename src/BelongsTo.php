@@ -5,7 +5,6 @@ namespace Artificertech\RelationshipEvents;
 use Artificertech\RelationshipEvents\Contracts\EventDispatcher;
 use Artificertech\RelationshipEvents\Traits\HasEventDispatcher;
 use Illuminate\Database\Eloquent\Relations\BelongsTo as BelongsToBase;
-use Illuminate\Support\Facades\Log;
 
 /**
  * Class BelongsTo.

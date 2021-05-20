@@ -11,7 +11,7 @@ class User extends Model
 {
     use HasRelationshipEvents;
 
-    protected $fillable = ['name'];
+    protected $guarded = [];
 
     protected static function booting()
     {
@@ -38,6 +38,24 @@ class User extends Model
         static::morphOneSaving('address', function ($user, $address) {
             if ($address->name == 'badName') return false;
         });
+
+        static::belongsToManySaving('roles', function ($user, $role, $attributes) {
+            if ($role->name == 'badName') return false;
+            if ($attributes['note'] == 'badNote') return false;
+        });
+
+        static::belongsToManyCreating('roles', function ($user, $role, $attributes) {
+            if ($role->name == 'badName') return false;
+            if ($attributes['note'] == 'badNote') return false;
+        });
+
+        static::belongsToManyAttaching('roles', function ($user, $roles) {
+            return $roles;
+        });
+
+        static::belongsToManyDetaching('roles', function ($user, $roles) {
+            return $roles;
+        });
     }
 
     public static function setupTable()
@@ -56,7 +74,7 @@ class User extends Model
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'role_user');
+        return $this->belongsToMany(Role::class, 'role_user')->withEvents();
     }
 
     public function posts()
