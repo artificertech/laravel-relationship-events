@@ -15,7 +15,6 @@ use ReflectionMethod;
 trait HasRelationshipEvents
 {
     use HandlesBelongsToEvents;
-    use HandlesBelongsToManyEvents;
     use HandlesHasManyEvents;
     use HandlesHasOneEvents;
     use HandlesMorphToEvents;
