@@ -248,8 +248,11 @@ Each relationship as slightly different events. For example the belongsTo relati
 - [Morph To](doc/morph-to.md)
 
 ## Todo
- - HasOneThrough & HasManyThrough
+ - Fix Automated Tests
+ - Add documentation for ManyToMany type events (these events can be handled by the built in pivot models and do not need this package)
  - Non-Default event name tests
  - Observer Tests
  - Event Dispatcher Tests
  - Event Listener Exception Tests
+ - HasOneThrough & HasManyThrough
+ - New HasOneOfMany relationship?
