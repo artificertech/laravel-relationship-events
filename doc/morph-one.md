@@ -74,6 +74,10 @@ Dispatch Events with the event dispatcher
 // ...
 ```
 
+BROKEN FUNCTIONALITY
+
+Curently the observer functionality is broken. This is my current priority and the below documentation explains how the observers will eventually work. This functionality did has not transitioned from the original package yet
+
 Or you may use an Observer
 ```php
 namespace App\Observer;

@@ -122,7 +122,11 @@ class User extends Model
 
 
 ## Observers
-Starting from v0.4 it is possible to use relationship events in [Laravel observers classes](https://laravel.com/docs/eloquent#observers) Usage is very simple. Define observer class:
+BROKEN FUNCTIONALITY
+
+Curently the observer functionality is broken. This is my current priority and the below documentation explains how the observers will eventually work. This functionality did has not transitioned from the original package yet
+
+It is possible to use relationship events in [Laravel observers classes](https://laravel.com/docs/eloquent#observers) Usage is very simple. Define observer class:
 
 ```php
 namespace App\Observer;
@@ -248,10 +252,10 @@ Each relationship as slightly different events. For example the belongsTo relati
 - [Morph To](doc/morph-to.md)
 
 ## Todo
+ - Observer functionality and Tests
  - Fix Automated Tests
  - Add documentation for ManyToMany type events (these events can be handled by the built in pivot models and do not need this package)
  - Non-Default event name tests
- - Observer Tests
  - Event Dispatcher Tests
  - Event Listener Exception Tests
  - HasOneThrough & HasManyThrough
