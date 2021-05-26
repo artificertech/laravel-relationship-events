@@ -5,6 +5,8 @@ Missing relationship events for Laravel
 
 This package was intitally forked from https://github.com/chelout/laravel-relationship-events which is not being actively developed. This package is a different take on the original idea that allows relationship event listeners to be created on a per-relationship basis
 
+This package is still in development. Feel free to contribute by submitting a pull request
+
 <p align="center">
  <a href="https://github.com/artificertech/laravel-relationship-events/actions"><img src="https://github.com/artificertech/laravel-relationship-events/workflows/tests/badge.svg" alt="Build Status"></a>
  <a href="https://packagist.org/packages/artificertech/laravel-relationship-events"><img src="https://poser.pugx.org/artificertech/laravel-relationship-events/d/total.svg" alt="Total Downloads"></a>
@@ -16,7 +18,9 @@ This package was intitally forked from https://github.com/chelout/laravel-relati
 
 1. Install package with composer
 
-#### Stable branch:
+#### Latest Release:
+Currently there are no releases for this project as it is still in development.
+
 ```
 composer require artificertech/laravel-relationship-events
 ```
@@ -26,112 +30,99 @@ composer require artificertech/laravel-relationship-events
 composer require artificertech/laravel-relationship-events:dev-master
 ```
 
-2. Use necessary trait in your model.
-#### Available traits:
-- HasOneEvents
-- HasBelongsToEvents
-- HasManyEvents
-- HasBelongsToManyEvents
-- HasMorphOneEvents
-- HasMorphToEvents
-- HasMorphManyEvents
-- HasMorphToManyEvents
-- HasMorphedByManyEvents
+2. Add the HasRelationshipEvents trait to your model
+
 
 ```php
 
-use Artificertech\RelationshipEvents\Concerns\HasOneEvents;
+use Artificertech\RelationshipEvents\Concerns\HasRelationshipEvents;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    use HasOneEvents;
+    use HasRelationshipEvents;
 
     public static function boot()
     {
         parent::boot();
 
         /**
-         * One To One Relationship Events
+         * hasOne
          */
-        static::hasOneSaved(function ($parent, $related) {
-            dump('hasOneSaved', $parent, $related);
+        static::hasOneSaved('profile', function ($user, $profile) {
+            dump('hasOneSaved', $user, $profile);
         });
+    }
 
-        static::hasOneUpdated(function ($parent, $related) {
-            dump('hasOneUpdated', $parent, $related);
-        });
+    public function profile()
+    {
+        return $this->hasOne(Profile::class)->withEvents();
     }
 
 }
 ```
 
+For all saving, attaching, creating, etc events that are fired before the operation takes place you may return false from the event listener to cancel the operation
+
 ```php
 
-use Artificertech\RelationshipEvents\Concerns\HasMorphToManyEvents;
+use Artificertech\RelationshipEvents\Concerns\HasRelationshipEvents;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class User extends Model
 {
-    use HasMorphToManyEvents;
+    use HasRelationshipEvents;
 
     public static function boot()
     {
         parent::boot();
 
         /**
-         * Many To Many Polymorphic Relations Events.
+         * hasMany
          */
-        static::morphToManyAttached(function ($relation, $parent, $ids, $attributes) {
-            dump('morphToManyAttached', $relation, $parent, $ids, $attributes);
-        });
-
-        static::morphToManyDetached(function ($relation, $parent, $ids) {
-            dump('morphToManyDetached', $relation, $parent, $ids);
+        static::hasManyCreating('posts', function ($user, $post) {
+            if ($post->name == 'badName') return false;
         });
     }
 
-    public function tags()
+    public function posts()
     {
-        return $this->morphToMany(Tag::class, 'taggable');
+        return $this->hasMany(Post::class)->withEvents();
     }
 
 }
 ```
 
 3. Dispatchable relationship events.
-It is possible to fire event classes via $dispatchesEvents properties and adding ```HasDispatchableEvents``` trait:
+It is possible to fire event classes via $dispatchesEvents properties
 
 ```php
 
-use Artificertech\RelationshipEvents\Concerns\HasOneEvents;
-use Artificertech\RelationshipEvents\Traits\HasDispatchableEvents;
+use Artificertech\RelationshipEvents\Concerns\HasRelationshipEvents;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    use HasDispatchableEvents;
-    use HasOneEvents;
+    use HasRelationshipEvents;
 
     protected $dispatchesEvents = [
-        'hasOneSaved' => HasOneSaved::class,
+        'postsCreating' => UserPostsCreating::class,
+        'postsCreated' => UserPostsCreated::class,
+        'postsSaving' => UserPostsSaving::class,
+        'postsSaved' => UserPostsSaved::class,
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class)->withEvents();
+    }
 
 }
 ```
 
-## Relationships
-- [One To One Relations](doc/1-one-to-one.md)
-- [One To Many Relations](doc/2-one-to-many.md)
-- [Many To Many Relations](doc/3-many-to-many.md)
-- [Has Many Through Relations](doc/4-has-many-through.md)
-- [One To One Polymorphic Relations](doc/5-one-to-one-polymorphic.md)
-- [One To Many Polymorphic Relations](doc/6-one-to-many-polymorphic.md)
-- [Many To Many Polymorphic Relations](doc/7-many-to-many-polymorphic.md)
-
 
 ## Observers
-Starting from v0.4 it is possible to use relationship events in [Laravel observers classes](https://laravel.com/docs/5.6/eloquent#observers) Usage is very simple. Let's take ```User``` and ```Profile``` classes from [One To One Relations](doc/1-one-to-one.md), add ```HasRelationshipObservables``` trait to ```User``` class. Define observer class:
+Starting from v0.4 it is possible to use relationship events in [Laravel observers classes](https://laravel.com/docs/eloquent#observers) Usage is very simple. Define observer class:
 
 ```php
 namespace App\Observer;
@@ -139,29 +130,55 @@ namespace App\Observer;
 class UserObserver
 {
     /**
-     * Handle the User "hasOneCreating" event.
+     * Handle the User "postsCreating" event.
      *
      * @param \App\Models\User $user
-     * @param \Illuminate\Database\Eloquent\Model $related
+     * @param \App\Models\Post $post
      *
      * @return void
      */
-    public function hasOneCreating(User $user, Model $related)
+    public function postsCreating(User $user, Post $post)
     {
-        Log::info("Creating profile for user {$related->name}.");
+        Log::info("Creating post: {$post->name} for user {$user->name}.");
     }
 
     /**
-     * Handle the User "hasOneCreated" event.
+     * Handle the User "postsCreated" event.
      *
      * @param \App\Models\User $user
-     * @param \Illuminate\Database\Eloquent\Model $related
+     * @param \App\Models\Post $post
      *
      * @return void
      */
-    public function hasOneCreated(User $user, Model $related)
+    public function postsCreated(User $user, Post $post)
     {
-        Log::info("Profile for user {$related->name} has been created.");
+        Log::info("Post: {$post->name} for user: {$user->name} has been created.");
+    }
+
+    /**
+     * Handle the User "postsCreating" event.
+     *
+     * @param \App\Models\User $user
+     * @param \App\Models\Post $post
+     *
+     * @return void
+     */
+    public function postsSaving(User $user, Post $post)
+    {
+        Log::info("Saving post: {$post->name} for user {$user->name}.");
+    }
+
+    /**
+     * Handle the User "postsCreated" event.
+     *
+     * @param \App\Models\User $user
+     * @param \App\Models\Post $post
+     *
+     * @return void
+     */
+    public function postsSaved(User $user, Post $post)
+    {
+        Log::info("Post: {$post->name} for user: {$user->name} has been saved.");
     }
 }
 ```
@@ -194,14 +211,45 @@ $user = factory(User::class)->create([
 
 // Create profile and assosiate it with user
 // This will fire two events hasOneCreating, hasOneCreated
-$user->profile()->create([
-    'phone' => '8-800-123-45-67',
-    'email' => 'user@example.com',
-    'address' => 'One Infinite Loop Cupertino, CA 95014',
+$user->post()->create([
+    'name' => 'My first post!',
 ]);
 // ...
 ```
 
+## Customizing the event name
+By default the relationship event name is equal to the relationship function name with the action taking place in camel case. For example if you have a HasOne relationship "profile" then the event names would be "profileCreating", "profileCreated", "profileSaving", "profileSaved".
+
+You may customize the event name by passing the relationship name into the withEvents() function as a string. For example:
+```php
+class User extends Model
+{
+    use HasRelationshipEvents;
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class)->withEvents('userPost');
+    }
+
+}
+```
+
+will fire "userPostCreating", "userPostCreated", "userPostSaving", "userPostSaved" events
+
+## Relationship Specific info
+
+Each relationship as slightly different events. For example the belongsTo relationship fires {relationship}Associating, {relationship}Associated, {relationship}Dissociating, and {relationship}Dissociated events
+
+- [Belongs To](doc/belongs-to.md)
+- [Has Many](doc/has-many.md)
+- [Has One](doc/has-one.md)
+- [Morph Many](doc/morph-many.md)
+- [Morph One](doc/morph-one.md)
+- [Morph To](doc/morph-to.md)
 
 ## Todo
- - Tests, tests, tests
+ - HasOneThrough & HasManyThrough
+ - Non-Default event name tests
+ - Observer Tests
+ - Event Dispatcher Tests
+ - Event Listener Exception Tests
