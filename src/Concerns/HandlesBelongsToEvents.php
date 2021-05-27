@@ -19,7 +19,7 @@ trait HandlesBelongsToEvents
      */
     public static function belongsToAssociating($relation, $callback)
     {
-        static::registerRelationshipEvent($relation . 'Associating', $callback);
+        static::registerModelEvent($relation . 'Associating', $callback);
     }
 
     /**
@@ -29,7 +29,7 @@ trait HandlesBelongsToEvents
      */
     public static function belongsToAssociated($relation, $callback)
     {
-        static::registerRelationshipEvent($relation . 'Associated', $callback);
+        static::registerModelEvent($relation . 'Associated', $callback);
     }
 
     /**
@@ -39,7 +39,7 @@ trait HandlesBelongsToEvents
      */
     public static function belongsToDissociating($relation, $callback)
     {
-        static::registerRelationshipEvent($relation . 'Dissociating', $callback);
+        static::registerModelEvent($relation . 'Dissociating', $callback);
     }
 
     /**
@@ -49,7 +49,7 @@ trait HandlesBelongsToEvents
      */
     public static function belongsToDissociated($relation, $callback)
     {
-        static::registerRelationshipEvent($relation . 'Dissociated', $callback);
+        static::registerModelEvent($relation . 'Dissociated', $callback);
     }
 
     /**

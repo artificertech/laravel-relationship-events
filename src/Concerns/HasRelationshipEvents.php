@@ -2,10 +2,6 @@
 
 namespace Artificertech\RelationshipEvents\Concerns;
 
-use Illuminate\Support\Str;
-use ReflectionClass;
-use ReflectionMethod;
-
 /**
  * Trait HasRelationshipObservables.
  *
@@ -20,86 +16,6 @@ trait HasRelationshipEvents
     use HandlesMorphToEvents;
     use HandlesMorphOneEvents;
     use HandlesMorphManyEvents;
-
-    /**
-     * @var array
-     */
-    protected static $relationshipObservables = [];
-
-    /**
-     * Initialize relationship observables.
-     *
-     * @return void
-     */
-    public static function bootHasRelationshipObservables()
-    {
-        $methods = collect(
-            class_uses(static::class)
-        )->filter(function ($trait) {
-            return Str::startsWith($trait, 'Artificertech\RelationshipEvents\Concerns');
-        })->flatMap(function ($trait) {
-            $trait = new ReflectionClass($trait);
-            $methods = $trait->getMethods(ReflectionMethod::IS_PUBLIC);
-
-            return collect($methods)->filter(function (ReflectionMethod $method) {
-                return $method->isStatic();
-            })->map(function ($method) {
-                return $method->name;
-            });
-        })->toArray();
-
-        static::mergeRelationshipObservables($methods);
-    }
-
-    /**
-     * Merge relationship observables.
-     *
-     * @param array $relationshipObservables
-     *
-     * @return void
-     */
-    public static function mergeRelationshipObservables(array $relationshipObservables)
-    {
-        static::$relationshipObservables = array_merge(static::$relationshipObservables, $relationshipObservables);
-    }
-
-    /**
-     * Get the observable event names.
-     *
-     * @return array
-     */
-    public function getObservableEvents()
-    {
-        return array_merge(
-            parent::getObservableEvents(),
-            static::getRelationshipObservables(),
-        );
-    }
-
-    /**
-     * Get relationship observables.
-     *
-     * @return array
-     */
-    public static function getRelationshipObservables(): array
-    {
-        return static::$relationshipObservables;
-    }
-
-    /**
-     * Register a model event with the dispatcher.
-     *
-     * @param string          $event
-     * @param \Closure|string $callback
-     */
-    protected static function registerRelationshipEvent($event, $callback)
-    {
-        if (isset(static::$dispatcher)) {
-            $name = static::class;
-
-            static::$dispatcher->listen("eloquent.{$event}: {$name}", $callback);
-        }
-    }
 
     /**
      * Fire the given event for the model relationship.

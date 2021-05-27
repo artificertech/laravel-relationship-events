@@ -19,7 +19,7 @@ trait HandlesMorphToEvents
      */
     public static function morphToAssociating($relation, $callback)
     {
-        static::registerRelationshipEvent($relation . 'Associating', $callback);
+        static::registerModelEvent($relation . 'Associating', $callback);
     }
 
     /**
@@ -29,7 +29,7 @@ trait HandlesMorphToEvents
      */
     public static function morphToAssociated($relation, $callback)
     {
-        static::registerRelationshipEvent($relation . 'Associated', $callback);
+        static::registerModelEvent($relation . 'Associated', $callback);
     }
 
     /**
@@ -39,7 +39,7 @@ trait HandlesMorphToEvents
      */
     public static function morphToDissociating($relation, $callback)
     {
-        static::registerRelationshipEvent($relation . 'Dissociating', $callback);
+        static::registerModelEvent($relation . 'Dissociating', $callback);
     }
 
     /**
@@ -49,7 +49,7 @@ trait HandlesMorphToEvents
      */
     public static function morphToDissociated($relation, $callback)
     {
-        static::registerRelationshipEvent($relation . 'Dissociated', $callback);
+        static::registerModelEvent($relation . 'Dissociated', $callback);
     }
 
     /**

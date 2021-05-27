@@ -13,6 +13,18 @@ class User extends Model
 
     protected $guarded = [];
 
+    /**
+     * User exposed observable events.
+     *
+     * These are extra user-defined events observers may subscribe to.
+     *
+     * @var array
+     */
+    protected $observables = [
+        'observerProfileCreating',
+        'observerProfileSaving',
+    ];
+
     protected static function booting()
     {
         static::hasManyCreating('posts', function ($user, $post) {
@@ -62,5 +74,10 @@ class User extends Model
     public function address()
     {
         return $this->morphOne(Address::class, 'addressable')->withEvents();
+    }
+
+    public function observerProfile()
+    {
+        return $this->hasOne(ObserverProfile::class)->withEvents();
     }
 }

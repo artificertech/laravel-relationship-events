@@ -19,7 +19,7 @@ trait HandlesHasOneEvents
      */
     public static function hasOneSaving($relation, $callback)
     {
-        static::registerRelationshipEvent($relation . 'Saving', $callback);
+        static::registerModelEvent($relation . 'Saving', $callback);
     }
 
     /**
@@ -29,7 +29,7 @@ trait HandlesHasOneEvents
      */
     public static function hasOneSaved($relation, $callback)
     {
-        static::registerRelationshipEvent($relation . 'Saved', $callback);
+        static::registerModelEvent($relation . 'Saved', $callback);
     }
 
     /**
@@ -39,7 +39,7 @@ trait HandlesHasOneEvents
      */
     public static function hasOneCreating($relation, $callback)
     {
-        static::registerRelationshipEvent($relation . 'Creating', $callback);
+        static::registerModelEvent($relation . 'Creating', $callback);
     }
 
     /**
@@ -49,7 +49,7 @@ trait HandlesHasOneEvents
      */
     public static function hasOneCreated($relation, $callback)
     {
-        static::registerRelationshipEvent($relation . 'Created', $callback);
+        static::registerModelEvent($relation . 'Created', $callback);
     }
 
     /**

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Post extends Model
+class ObserverProfile extends Model
 {
     use HasRelationshipEvents;
 
@@ -15,18 +15,18 @@ class Post extends Model
 
     protected static function booting()
     {
-        static::morphManyCreating('comments', function ($post, $comment) {
-            if ($comment->name == 'badName') return false;
+        static::belongsToAssociating('user', function ($profile, $user) {
+            if ($user->name == 'badName') return false;
         });
 
-        static::morphManySaving('comments', function ($post, $comment) {
-            if ($comment->name == 'badName') return false;
+        static::belongsToDissociating('user', function ($profile, $user) {
+            if ($user->name == 'badDissociateName') return false;
         });
     }
 
     public static function setupTable()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('observer_profiles', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
             $table->string('name')->nullable();
@@ -34,8 +34,8 @@ class Post extends Model
         });
     }
 
-    public function comments()
+    public function user()
     {
-        return $this->morphMany(Comment::class, 'commentable')->withEvents();
+        return $this->belongsTo(User::class)->withEvents('user');
     }
 }
