@@ -1,6 +1,6 @@
 <?php
 
-namespace Artificertech\RelationshipEvents\Contracts;
+namespace Artificertech\RelationshipEvents\Database\Eloquent\Relations\Contracts;
 
 use Illuminate\Contracts\Events\Dispatcher;
 
