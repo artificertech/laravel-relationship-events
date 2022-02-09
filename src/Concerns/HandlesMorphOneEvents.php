@@ -2,7 +2,7 @@
 
 namespace Artificertech\RelationshipEvents\Concerns;
 
-use Artificertech\RelationshipEvents\MorphOne;
+use Artificertech\RelationshipEvents\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
