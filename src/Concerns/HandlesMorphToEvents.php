@@ -2,7 +2,7 @@
 
 namespace Artificertech\RelationshipEvents\Concerns;
 
-use Artificertech\RelationshipEvents\MorphTo;
+use Artificertech\RelationshipEvents\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 

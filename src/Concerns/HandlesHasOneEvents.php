@@ -2,7 +2,7 @@
 
 namespace Artificertech\RelationshipEvents\Concerns;
 
-use Artificertech\RelationshipEvents\HasOne;
+use Artificertech\RelationshipEvents\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
